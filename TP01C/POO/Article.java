@@ -26,8 +26,10 @@ public class Article {
 	}
 	public double getPrixNet() {
 		//completer
+	}
 	public void setPrixNet(double prix_net) {
 		//completer
+		
 	}
 	public double getVAT(){
 		//completer
