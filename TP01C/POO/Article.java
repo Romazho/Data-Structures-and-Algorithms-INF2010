@@ -8,15 +8,19 @@ public class Article {
 
         public Article(String NumProduit, String nom){
                     //completer
+        	this.NumProduit = NumProduit;
+        	this.nom = nom;
 	}
 	
 	public Article(String np, String nom, double prix){		
 		//completer
+		
 	}
 	
 
 	public String getNumProduit() {
 		//completer
+		return NumProduit;
 	}	
 	public String getNom() {
 		//completer

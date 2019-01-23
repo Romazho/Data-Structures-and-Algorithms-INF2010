@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>testing</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>src/Etudiant.java</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/test/Etudiant.java</locationURI>
+		</link>
+		<link>
+			<name>src/NoteCours.java</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/test/NoteCours.java</locationURI>
+		</link>
+		<link>
+			<name>src/Trieuse.java</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/test/Trieuse.java</locationURI>
+		</link>
+	</linkedResources>
+</projectDescription>
