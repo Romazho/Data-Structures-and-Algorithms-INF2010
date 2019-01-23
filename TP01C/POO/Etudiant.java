@@ -96,8 +96,7 @@ public class Etudiant {
     
     public boolean equals(Object etudiant_x) {	//est-ce que l'etudaint est de type Etudiant??
             // completer 
-    	if(etudiant_x.get == this.Matr && etudiant_x.getEmail == this.email && etudiant_x.getNom() == this.nom && 
-    			etudiant_x.getPrenom == this.prenom && etudiant_x.section == this.section) {
+    	if(this == etudiant_x) {
     		return true;
     	}
     	else {

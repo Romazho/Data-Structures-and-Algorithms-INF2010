@@ -14,6 +14,7 @@ public class Trieuse {
     private static class NomOrdre implements Comparator<Etudiant> {
         public int compare(Etudiant x, Etudiant y) {
            // completer
+        	return x.getNom().compareTo(y.getNom());
         }
     }
 
@@ -21,6 +22,15 @@ public class Trieuse {
     private static class SectionOrdre implements Comparator<Etudiant> {
         public int compare(Etudiant x, Etudiant y) {
              // completer
+        	if( x.getSection() < y.getSection() ) {
+        		return -1;
+        	}
+        	else if( x.getSection() > y.getSection() ) {
+        		return 1;
+        	}
+        	else {
+        		return 0;
+        	}
         }
     }
 
@@ -64,6 +74,7 @@ public class Trieuse {
         System.out.println("Par section");
         System.out.println("----------");
                  // Completer
+        Arrays.sort(Arrays, Par_nom); 		//pas sur.
         System.out.println("----------");
 
        
