@@ -4,13 +4,13 @@ import java.util.Comparator;
 
 public class Etudiant {
 	final int N = 10;
-	private String Matr;
-	private String nom;
-	private String prenom;	
+	private String Matr; // 
+	private String nom; //
+	private String prenom; //	
 	private String email; 
 	private int section; 
 	
-        private int n_des_notes;		//c'est quoi??
+        private int n_des_notes;		//c'est quoi?? nombre de notes 
 	private NoteCours [] notes;		//un tableau avec les notes
 	
 	
@@ -26,7 +26,7 @@ public class Etudiant {
 	
 	public void AjouterNote(String sigle, String titre, int note){ 
 		//completer
-		int i = NoteCours.length-1;
+		int i = notes.length-1;
 		notes[i].sigle = sigle;
 		notes[i].titre = titre;
 		notes[i].note = note;
@@ -35,7 +35,7 @@ public class Etudiant {
 	public double NoteMoyenne(){
 		//completer
 		int moyenne =0;
-		for(int i=0;i<NoteCours.length;i++) {
+		for(int i=0;i<notes.length;i++) {
 			moyenne += notes[i].note;
 		}
 		moyenne = moyenne/notes.length;
@@ -90,12 +90,13 @@ public class Etudiant {
 	
     public String toString() {	//il faut faire quoi?????
         // completer
+    	return (this.Matr + " " + this.prenom + " " + this.nom);
     	
     }
     
     public boolean equals(Object etudiant_x) {	//est-ce que l'etudaint est de type Etudiant??
             // completer 
-    	if(etudiant_x.getMatr == this.Matr && etudiant_x.getEmail == this.email && etudiant_x.getNom == this.nom && 
+    	if(etudiant_x.get == this.Matr && etudiant_x.getEmail == this.email && etudiant_x.getNom() == this.nom && 
     			etudiant_x.getPrenom == this.prenom && etudiant_x.section == this.section) {
     		return true;
     	}
