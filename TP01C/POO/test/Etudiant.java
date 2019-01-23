@@ -33,7 +33,7 @@ public class Etudiant {
 		objet.titre = titre;
 		objet.note = note;
 		notes[i] = objet;
-		n_des_notes++;
+		//n_des_notes++;
 		/*
 		notes[i].sigle = sigle; 
 		notes[i].titre = titre;

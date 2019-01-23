@@ -57,9 +57,9 @@ public class Trieuse {
         e.AjouterNote("INF2010", "Structures de données et algorithmes", 4);		
         e.AjouterNote("LOG2810", "Structures discrètes", 5);
         e.AjouterNote("INF2610", "Noyau d'un système d'exploitation", 3);
-	System.out.println(e.NoteMoyenne());
+        System.out.println(e.NoteMoyenne());
 
-        Etudiant john     = new Etudiant("1797453","john",  2);
+        Etudiant john     = new Etudiant("1797453","John",  2);
         Etudiant Caroline = new Etudiant("1897053","Caroline",    1);
         Etudiant Antoine  = new Etudiant("1297453","Antoine",  2);
         Etudiant Karl     = new Etudiant("1797433","Karl",   1);
@@ -74,9 +74,10 @@ public class Trieuse {
         System.out.println("Par le nom ");
         System.out.println("----------");
                // Completer
-       // Arrays.sort(Arrays, Par_nom); 		//pas sur.//////////////////////////////////////////////////////////////////////////////////////////////
         ParNom(etudiants);
-        System.out.println(etudiants);
+        for(int i=0; i < etudiants.length; i++) {
+        	System.out.println(etudiants[i] + " ");
+        }
         System.out.println("----------");
         
 
@@ -86,7 +87,9 @@ public class Trieuse {
         System.out.println("----------");
                  // Completer
         ParSection(etudiants);
-        System.out.println(etudiants);
+        for(int i=0; i < etudiants.length; i++) {
+        	System.out.println(etudiants[i] + " ");
+        }
         System.out.println("----------");
 
        
