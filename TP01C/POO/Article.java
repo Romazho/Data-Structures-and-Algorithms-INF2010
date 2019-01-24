@@ -10,11 +10,14 @@ public class Article {
                     //completer
         	this.NumProduit = NumProduit;
         	this.nom = nom;
+        	Prix_net = 0;
 	}
 	
 	public Article(String np, String nom, double prix){		
 		//completer
-		
+		NumProduit = np;
+		this.nom = nom;
+		Prix_net = prix;
 	}
 	
 
@@ -24,27 +27,33 @@ public class Article {
 	}	
 	public String getNom() {
 		//completer
+		return nom;
 	}
 	public void setNom(String nom) {
 		//completer
+		this.nom = nom;
 	}
 	public double getPrixNet() {
 		//completer
+		return Prix_net;
 	}
 	public void setPrixNet(double prix_net) {
 		//completer
-		
+		Prix_net = prix_net;
 	}
 	public double getVAT(){
 		//completer
+		return 0.15;
 	}
-	public double getPrix(int count){
+	public double getPrix(int count){ // WTF is count ? Nb de fois que tu l'achètes ??? 
 		//completer
+		return (this.getPrixNet()*this.getVAT()*count); // Prix * taxes * nb
 	}
 	public String getArticleType(){
 		//completer
+		return this.getClass().toString() ; // Retourne un string du type de la classe de l'objet
 	}
-	public String toString() {
-		//completer
+	public String toString() { // Il faut afficher le contenu de l'article ? 
+		return "A FAIRE !!";
 	}
 }

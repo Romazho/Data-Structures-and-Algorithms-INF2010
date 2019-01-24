@@ -1,27 +1,43 @@
 package POO;
 
 public class CadreDiplome extends Article {
+	
+	/*ATTRIBUTS*/
 	private String categorie;
 	private String couleur;
+	
+	/*CONSTRUCTEURS*/
 	public CadreDiplome(String NumProduit, String nom, double prix, String couleur,String categorie){
-		//completer
+
+		super(NumProduit, nom, prix);
+		this.couleur = couleur;
+		this.categorie = categorie;
 	}
 	
 	public CadreDiplome(String NumProduit, String nom, double prix,String categorie){
-		//completer
+		
+		super(NumProduit, nom, prix);
+		this.categorie = categorie;
+		couleur = "Aucune couleur";
+		
 	}
 	
+	/*METHODES D'ACCES*/
 	@Override
 	public String getArticleType() {
-		//completer
+		
+		return super.getArticleType();
 	}
 
-	public double getCategorie() {
+	public String getCategorie() { // Il semble avoir un probleme ici, Pourquoi est-ce que la categorie est un "double" ? Je l'ai changée pour un String, ça fait plus de sens
 		//completer
+		return categorie;
 	}
-
+	
+	/*METHODE DE MODIFICATION*/
 	public void setCategorie(String categorie) {
-                   //completer
+                  
+		this.categorie = categorie;
 	}
 	
 }
