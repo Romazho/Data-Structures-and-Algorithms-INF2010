@@ -3,7 +3,7 @@ package POO;
 import java.util.Comparator;
 
 public class Etudiant {
-	final int N = 10;
+	final int N = 20;
 	private String Matr; // 
 	private String nom; //
 	private String prenom; //	
@@ -20,26 +20,37 @@ public class Etudiant {
 		 this.Matr = Matr;
 		 this.nom = nom;
 		 this.section = section;
+		 notes = new NoteCours[N];
+		 n_des_notes =0;
 	    }
         
          
 	
 	public void AjouterNote(String sigle, String titre, int note){ 
 		//completer
+		
 		int i = notes.length-1;
-		notes[i].sigle = sigle;
+		NoteCours objet = new NoteCours();
+		objet.sigle = sigle;
+		objet.titre = titre;
+		objet.note = note;
+		//n_des_notes++;
+		notes[i] = objet;
+		
+		/*
+		notes[i].sigle = sigle; 
 		notes[i].titre = titre;
-		notes[i].note = note;
+		notes[i].note = note;*/
 	}
 	
 	public double NoteMoyenne(){
 		//completer
-		int moyenne =0;
-		for(int i=0;i<notes.length;i++) {
-			moyenne += notes[i].note;
+		int somme = 0;
+		for(int i=0;i<n_des_notes;i++) {
+			somme =  somme + notes[i].note;
+			
 		}
-		moyenne = moyenne/notes.length;
-		return moyenne;
+		return (somme/notes.length);
 	}
 
 	public String getMatr() {

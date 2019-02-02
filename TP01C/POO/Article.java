@@ -47,13 +47,13 @@ public class Article {
 	}
 	public double getPrix(int count){ // WTF is count ? Nb de fois que tu l'achètes ??? 
 		//completer
-		return (this.getPrixNet()*this.getVAT()*count); // Prix * taxes * nb
+		return ((this.getPrixNet()*this.getVAT()+this.getPrixNet())*count); // (Prix*taxes + prix)*count
 	}
 	public String getArticleType(){
 		//completer
 		return this.getClass().toString() ; // Retourne un string du type de la classe de l'objet
 	}
 	public String toString() { // Il faut afficher le contenu de l'article ? 
-		return "A FAIRE !!";
+		return (this.NumProduit + " " + this.nom + " " + this.Prix_net);
 	}
 }

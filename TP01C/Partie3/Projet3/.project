@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>Projet3</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>src/partie3/File.java</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/File.java</locationURI>
+		</link>
+		<link>
+			<name>src/partie3/Main.java</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Main.java</locationURI>
+		</link>
+		<link>
+			<name>src/partie3/Pile.java</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Pile.java</locationURI>
+		</link>
+		<link>
+			<name>src/partie3/Sac.java</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Sac.java</locationURI>
+		</link>
+	</linkedResources>
+</projectDescription>

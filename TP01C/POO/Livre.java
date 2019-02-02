@@ -12,7 +12,7 @@ public class Livre extends Article {
 	public Livre(String NumProduit, String nom, double prix, String format){
 	      
 		super(NumProduit, nom, prix);
-		
+		this.format = format;
 	}
 	
 	
