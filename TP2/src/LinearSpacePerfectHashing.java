@@ -41,12 +41,25 @@ public class LinearSpacePerfectHashing<AnyType>
    private int findPos(AnyType x)
    {
       // completer
-      return 0;
+	  int hash = x.hashCode();
+	  int y = ((a*hash)%p)%n;
+	  
+	  while(y<0 || y>=n) {
+		  hash = x.hashCode();
+		  y = ((a*hash)%p)%n;
+	  }
+	  
+      return y;
    }
    
    public boolean contains(AnyType x)
    {      
       // completer
+	  for(int i=0;i<data.length;i++) {
+		  if(data[i] == x) {
+			  return true;
+		  }
+	  }
       return false;
    }
       
@@ -63,9 +76,22 @@ public class LinearSpacePerfectHashing<AnyType>
       if(n == 1)
       {
          // Completer
+    	 data[0] = new QuadraticSpacePerfectHashing<AnyType>(array);
+    	 
+    	// items = (AnyType[]) new Object[m];
+    	 
+    	 /*AnyType  tmp = ArrayList<AnyType>[] new Object[1];
+    	 
+    			 tmp.add(arrsy.get(0))
+    			 data[0].setArray(array);*/
+    	 memorySize = 1;
          return;
       }
       
+      for(int i=0;i<array.size();i++) {
+    	  int pos =findPos(array.get(i));
+    	  
+      }
       // A completer
    }
    

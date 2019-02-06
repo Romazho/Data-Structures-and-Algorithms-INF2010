@@ -41,7 +41,24 @@ public class QuadraticSpacePerfectHashing<AnyType>
    private int findPos(AnyType x)
    {
       // Completer
-      return 0;
+	  
+	  int hash = x.hashCode();
+	  
+	  /*int pos = 0;
+	  for(int i=0; i<items.length; i++) {
+		  if(items[i] == x) {
+			   pos = i;
+			   
+		  }
+	  }*/
+	  int y = ((a*hash+b)%p)%m;
+	  
+	  while(y < 0 || y >= m) {
+		  hash = x.hashCode();
+		  y = ((a*hash+b)%p)%m;
+	  }
+	  return y;
+	  
    }
 
    public boolean contains(AnyType x )
@@ -77,6 +94,26 @@ public class QuadraticSpacePerfectHashing<AnyType>
    private boolean unsuccessfulMemoryAllocation(ArrayList<AnyType> array)
    {
       // A completer
+	  a=0;
+	  while(a != 0 && a<p) {
+	  a = generator.nextInt(p);
+	  }
+	  b = generator.nextInt(p);
+	  
+	  items = (AnyType[]) new Object[m]; // on alloue l'espace mémoire requis
+	  
+	  for(int i=0; i<array.size();i++) {
+		  
+		  int aleatoire =findPos(items[i]);
+		  
+		  if(items[aleatoire] != null) { //a utiliser la fonction contains...
+			  return true;
+		  }
+		  else if(items[aleatoire] == null) {
+			  items[aleatoire] = array.get(i);
+		  }
+	  }
+	  
       return false;
    }
    
