@@ -91,8 +91,28 @@ public class LinearSpacePerfectHashing<AnyType>
       for(int i=0;i<array.size();i++) {
     	  int pos =findPos(array.get(i));
     	  
+    	  if(data[pos] == null) { // Si l'espace est libre, mettre l'element
+    		  ArrayList<AnyType>dummyArray = new ArrayList<AnyType>(1); // Tableau temporaire de capacité 1
+    		  dummyArray.add(array.get(i));
+    		  data[pos] = new QuadraticSpacePerfectHashing<AnyType>(dummyArray);
+    	  }
+    	  
+    	  else { // Si collision
+    		  ArrayList<AnyType>dummyArray = new ArrayList<AnyType>(data[pos].size() + 1); // +1 car on va ajouter un element
+    		  for(int j = 0; i < data[pos].memorySize(); j++) { // Copier les éléments de l'ancien tableau quad
+    			  if(data[pos].items[j] != null) { // S'il y a un élement
+    				  dummyArray.add(data[pos].items[j]); // Copie d'un élément
+    			  }
+    		  }
+    		  dummyArray.add(array.get(i)); // Ajout du nouvel élément dans le dummy
+    		  data[pos].clear(); // On fait de la place pour le nouveau array
+    		  data[pos] = new QuadraticSpacePerfectHashing<AnyType>(dummyArray); // On utilise le constructeur avec le nouveau tableau
+    	  }
+    	 
       }
-      // A completer
+      for(int index = 0; index < data.length; index ++) {
+		   memorySize += data[index].memorySize();
+	   }
    }
    
    public int memorySize() 
