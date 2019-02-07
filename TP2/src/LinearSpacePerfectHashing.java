@@ -80,12 +80,13 @@ public class LinearSpacePerfectHashing<AnyType>
          // Completer
     	 data[0] = new QuadraticSpacePerfectHashing<AnyType>(array);
     	 
-    	// items = (AnyType[]) new Object[m];
-    	 
-    	 /*AnyType  tmp = ArrayList<AnyType>[] new Object[1];
-    	 
-    			 tmp.add(arrsy.get(0))
-    			 data[0].setArray(array);*/
+    	 //si le haut ne marche pas on fait ceci:
+    	 /*
+    	 ArrayList<AnyType> tmp = new ArrayList<AnyType>(1);
+    	 tmp.add(array.get(0));
+    	 data[0].setArray(array);
+    	 */
+
     	 memorySize = 1;
          return;
       }
@@ -113,7 +114,7 @@ public class LinearSpacePerfectHashing<AnyType>
     	 
       }
       for(int index = 0; index < data.length; index ++) {
-      	if(data[i] != null){
+      	if(data[index] != null){
 		memorySize += data[index].memorySize();
 	 }
       }
@@ -128,7 +129,39 @@ public class LinearSpacePerfectHashing<AnyType>
       StringBuilder sb = new StringBuilder();
       
       // completer
+      for(int i=0;i<data.length;i++) {	//on parcours le tableau data
+    	  System.out.print(i + "-> " );
+
+    	  if(data[i] == null) {			//s'il n'y a rien dans cette case alors on affiche "vide"
+    		  System.out.println("vide.");
+    	  }
+    	  else {
+	    	  for(int j=0;j<data[i].memorySize();j++) {		//on parcours le tableau quadratic
+	    		  if(data[i].items[j] != null ) {
+	    			  System.out.print(data[i].items[j] + "," );
+	    		  }
+	    	  }
+	    	  System.out.println(" ");
+    	  }
+      }
       
       return sb.toString();
    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
