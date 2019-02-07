@@ -113,8 +113,10 @@ public class LinearSpacePerfectHashing<AnyType>
     	 
       }
       for(int index = 0; index < data.length; index ++) {
-		   memorySize += data[index].memorySize();
-	   }
+      	if(data[i] != null){
+		memorySize += data[index].memorySize();
+	 }
+      }
    }
    
    public int memorySize() 
