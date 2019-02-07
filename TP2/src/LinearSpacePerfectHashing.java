@@ -56,7 +56,7 @@ public class LinearSpacePerfectHashing<AnyType>
    {      
       // completer
 	  for(int i=0;i<data.length;i++) {
-		  if(data[i] == x) {
+		  if(data[i].contains(x)) {
 			  return true;
 		  }
 	  }
@@ -72,6 +72,8 @@ public class LinearSpacePerfectHashing<AnyType>
 
       n    = array.size();
       data = new QuadraticSpacePerfectHashing[n];
+      
+      memorySize =0;
       
       if(n == 1)
       {
@@ -92,19 +94,19 @@ public class LinearSpacePerfectHashing<AnyType>
     	  int pos =findPos(array.get(i));
     	  
     	  if(data[pos] == null) { // Si l'espace est libre, mettre l'element
-    		  ArrayList<AnyType>dummyArray = new ArrayList<AnyType>(1); // Tableau temporaire de capacité 1
+    		  ArrayList<AnyType>dummyArray = new ArrayList<AnyType>(1); // Tableau temporaire de capacitÃ© 1
     		  dummyArray.add(array.get(i));
     		  data[pos] = new QuadraticSpacePerfectHashing<AnyType>(dummyArray);
     	  }
     	  
     	  else { // Si collision
     		  ArrayList<AnyType>dummyArray = new ArrayList<AnyType>(data[pos].size() + 1); // +1 car on va ajouter un element
-    		  for(int j = 0; i < data[pos].memorySize(); j++) { // Copier les éléments de l'ancien tableau quad
-    			  if(data[pos].items[j] != null) { // S'il y a un élement
-    				  dummyArray.add(data[pos].items[j]); // Copie d'un élément
+    		  for(int j = 0; i < data[pos].memorySize(); j++) { // Copier les Ã©lÃ©ments de l'ancien tableau quad
+    			  if(data[pos].items[j] != null) { // S'il y a un Ã©lement
+    				  dummyArray.add(data[pos].items[j]); // Copie d'un Ã©lÃ©ment
     			  }
     		  }
-    		  dummyArray.add(array.get(i)); // Ajout du nouvel élément dans le dummy
+    		  dummyArray.add(array.get(i)); // Ajout du nouvel Ã©lÃ©ment dans le dummy
     		  data[pos].clear(); // On fait de la place pour le nouveau array
     		  data[pos] = new QuadraticSpacePerfectHashing<AnyType>(dummyArray); // On utilise le constructeur avec le nouveau tableau
     	  }
