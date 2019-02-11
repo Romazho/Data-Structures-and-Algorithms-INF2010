@@ -44,10 +44,12 @@ public class LinearSpacePerfectHashing<AnyType>
 	  int hash = x.hashCode();
 	  int y = ((a*hash)%p)%n;
 	  
-	  while(y<0 || y>=n) {
+	  /*while(y<0 || y>=n) {
 		  hash = x.hashCode();
 		  y = ((a*hash)%p)%n;
-	  }
+	  }*/
+	  if(y < 0 )
+		  y*= -1;
 	  
       return y;
    }
@@ -56,7 +58,10 @@ public class LinearSpacePerfectHashing<AnyType>
    {      
       // completer
 	  for(int i=0;i<data.length;i++) {
-		  if(data[i].contains(x)) {
+		  if(data[i] == null) {
+			  continue;
+		  }
+		  else if(data[i].contains(x)) {
 			  return true;
 		  }
 	  }
@@ -68,6 +73,12 @@ public class LinearSpacePerfectHashing<AnyType>
    {
       clear();
       
+      a=0; // Ajout de la m�thode al�atoire 
+	  while(a == 0 && a<p) {
+	  a = generator.nextInt(p);
+	  }
+	  b = generator.nextInt(p);
+	  
       if(array == null || array.size() == 0) return;
 
       n    = array.size();
@@ -75,17 +86,10 @@ public class LinearSpacePerfectHashing<AnyType>
       
       memorySize =0;
       
-      if(n == 1)
+      if(n == 1) // Si le array est de taille 1 
       {
          // Completer
-    	 data[0] = new QuadraticSpacePerfectHashing<AnyType>(array);
-    	 
-    	 //si le haut ne marche pas on fait ceci:
-    	 /*
-    	 ArrayList<AnyType> tmp = new ArrayList<AnyType>(1);
-    	 tmp.add(array.get(0));
-    	 data[0].setArray(array);
-    	 */
+    	 data[0] = new QuadraticSpacePerfectHashing<AnyType>(array);  // Position 0 dans le tableau
 
     	 memorySize = 1;
          return;
@@ -102,7 +106,7 @@ public class LinearSpacePerfectHashing<AnyType>
     	  
     	  else { // Si collision
     		  ArrayList<AnyType>dummyArray = new ArrayList<AnyType>(data[pos].size() + 1); // +1 car on va ajouter un element
-    		  for(int j = 0; i < data[pos].memorySize(); j++) { // Copier les éléments de l'ancien tableau quad
+    		  for(int j = 0; j < data[pos].memorySize(); j++) { // Copier les éléments de l'ancien tableau quad
     			  if(data[pos].items[j] != null) { // S'il y a un élement
     				  dummyArray.add(data[pos].items[j]); // Copie d'un élément
     			  }
