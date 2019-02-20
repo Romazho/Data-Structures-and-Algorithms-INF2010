@@ -1,3 +1,5 @@
+package projet1;
+
 // Toute modification a ce fichier ne sera pas comptabilisée
 public class Main {
 
@@ -8,7 +10,5 @@ public class Main {
         TestBinary testBinary = new TestBinary();
         testBinary.test();
 
-        TestCompany testCompany = new TestCompany();
-        testCompany.test();
     }
 }
