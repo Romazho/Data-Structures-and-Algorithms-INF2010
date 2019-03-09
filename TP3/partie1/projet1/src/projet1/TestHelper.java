@@ -1,4 +1,3 @@
-package projet1;
 
 // Toute modification a ce fichier ne sera pas comptabilisée
 

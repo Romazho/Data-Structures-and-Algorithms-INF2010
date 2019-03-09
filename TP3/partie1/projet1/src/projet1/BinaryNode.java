@@ -1,5 +1,3 @@
-package projet1;
-
 import java.util.List;
 
 public class BinaryNode<T extends Comparable<? super T>> {
