@@ -53,10 +53,13 @@ public class QuadraticSpacePerfectHashing<AnyType>
 	  }*/
 	  int y = ((a*hash+b)%p)%m;
 	  
-	  while(y < 0 || y >= m) {
+	  /*while(y < 0 || y >= m) {
 		  hash = x.hashCode();
 		  y = ((a*hash+b)%p)%m;
-	  }
+	  
+	  }*/
+	  if(y < 0 )
+		  y*= -1;
 	  return y;
 	  
    }
@@ -95,7 +98,7 @@ public class QuadraticSpacePerfectHashing<AnyType>
    {
       // A completer
 	  a=0;
-	  while(a != 0 && a<p) {
+	  while(a == 0 && a<p) {
 	  a = generator.nextInt(p);
 	  }
 	  b = generator.nextInt(p);
@@ -104,7 +107,7 @@ public class QuadraticSpacePerfectHashing<AnyType>
 	  
 	  for(int i=0; i<array.size();i++) {
 		  
-		  int aleatoire =findPos(items[i]);
+		  int aleatoire =findPos(array.get(i));
 		  
 		  if(items[aleatoire] != null) { //a utiliser la fonction contains...
 			  return true;
@@ -113,7 +116,6 @@ public class QuadraticSpacePerfectHashing<AnyType>
 			  items[aleatoire] = array.get(i);
 		  }
 	  }
-	  
       return false;
    }
    

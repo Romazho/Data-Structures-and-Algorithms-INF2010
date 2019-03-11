@@ -44,10 +44,12 @@ public class LinearSpacePerfectHashing<AnyType>
 	  int hash = x.hashCode();
 	  int y = ((a*hash)%p)%n;
 	  
-	  while(y<0 || y>=n) {
+	  /*while(y<0 || y>=n) {
 		  hash = x.hashCode();
 		  y = ((a*hash)%p)%n;
-	  }
+	  }*/
+	  if(y < 0 )
+		  y*= -1;
 	  
       return y;
    }
@@ -56,7 +58,10 @@ public class LinearSpacePerfectHashing<AnyType>
    {      
       // completer
 	  for(int i=0;i<data.length;i++) {
-		  if(data[i] == x) {
+		  if(data[i] == null) {
+			  continue;
+		  }
+		  else if(data[i].contains(x)) {
 			  return true;
 		  }
 	  }
@@ -68,22 +73,24 @@ public class LinearSpacePerfectHashing<AnyType>
    {
       clear();
       
+      a=0; // Ajout de la méthode aléatoire 
+	  while(a == 0 && a<p) {
+	  a = generator.nextInt(p);
+	  }
+	  b = generator.nextInt(p);
+	  
       if(array == null || array.size() == 0) return;
 
       n    = array.size();
       data = new QuadraticSpacePerfectHashing[n];
       
-      if(n == 1)
+      memorySize =0;
+      
+      if(n == 1) // Si le array est de taille 1 
       {
          // Completer
-    	 data[0] = new QuadraticSpacePerfectHashing<AnyType>(array);
-    	 
-    	// items = (AnyType[]) new Object[m];
-    	 
-    	 /*AnyType  tmp = ArrayList<AnyType>[] new Object[1];
-    	 
-    			 tmp.add(arrsy.get(0))
-    			 data[0].setArray(array);*/
+    	 data[0] = new QuadraticSpacePerfectHashing<AnyType>(array);  // Position 0 dans le tableau
+
     	 memorySize = 1;
          return;
       }
@@ -92,19 +99,19 @@ public class LinearSpacePerfectHashing<AnyType>
     	  int pos =findPos(array.get(i));
     	  
     	  if(data[pos] == null) { // Si l'espace est libre, mettre l'element
-    		  ArrayList<AnyType>dummyArray = new ArrayList<AnyType>(1); // Tableau temporaire de capacité 1
+    		  ArrayList<AnyType>dummyArray = new ArrayList<AnyType>(1); // Tableau temporaire de capacitÃ© 1
     		  dummyArray.add(array.get(i));
     		  data[pos] = new QuadraticSpacePerfectHashing<AnyType>(dummyArray);
     	  }
     	  
     	  else { // Si collision
     		  ArrayList<AnyType>dummyArray = new ArrayList<AnyType>(data[pos].size() + 1); // +1 car on va ajouter un element
-    		  for(int j = 0; i < data[pos].memorySize(); j++) { // Copier les éléments de l'ancien tableau quad
-    			  if(data[pos].items[j] != null) { // S'il y a un élement
-    				  dummyArray.add(data[pos].items[j]); // Copie d'un élément
+    		  for(int j = 0; j < data[pos].memorySize(); j++) { // Copier les Ã©lÃ©ments de l'ancien tableau quad
+    			  if(data[pos].items[j] != null) { // S'il y a un Ã©lement
+    				  dummyArray.add(data[pos].items[j]); // Copie d'un Ã©lÃ©ment
     			  }
     		  }
-    		  dummyArray.add(array.get(i)); // Ajout du nouvel élément dans le dummy
+    		  dummyArray.add(array.get(i)); // Ajout du nouvel Ã©lÃ©ment dans le dummy
     		  data[pos].clear(); // On fait de la place pour le nouveau array
     		  data[pos] = new QuadraticSpacePerfectHashing<AnyType>(dummyArray); // On utilise le constructeur avec le nouveau tableau
     		  
@@ -112,8 +119,10 @@ public class LinearSpacePerfectHashing<AnyType>
     	 
       }
       for(int index = 0; index < data.length; index ++) {
-		   memorySize += data[index].memorySize();
-	   }
+      	if(data[index] != null){
+		memorySize += data[index].memorySize();
+	 }
+      }
    }
    
    public int memorySize() 
@@ -125,7 +134,39 @@ public class LinearSpacePerfectHashing<AnyType>
       StringBuilder sb = new StringBuilder();
       
       // completer
+      for(int i=0;i<data.length;i++) {	//on parcours le tableau data
+    	  System.out.print(i + "-> " );
+
+    	  if(data[i] == null) {			//s'il n'y a rien dans cette case alors on affiche "vide"
+    		  System.out.println("vide.");
+    	  }
+    	  else {
+	    	  for(int j=0;j<data[i].memorySize();j++) {		//on parcours le tableau quadratic
+	    		  if(data[i].items[j] != null ) {
+	    			  System.out.print(data[i].items[j] + "," );
+	    		  }
+	    	  }
+	    	  System.out.println(" ");
+    	  }
+      }
       
       return sb.toString();
    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
