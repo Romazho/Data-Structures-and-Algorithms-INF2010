@@ -107,6 +107,7 @@ public class LinearSpacePerfectHashing<AnyType>
     		  dummyArray.add(array.get(i)); // Ajout du nouvel élément dans le dummy
     		  data[pos].clear(); // On fait de la place pour le nouveau array
     		  data[pos] = new QuadraticSpacePerfectHashing<AnyType>(dummyArray); // On utilise le constructeur avec le nouveau tableau
+    		  
     	  }
     	 
       }
