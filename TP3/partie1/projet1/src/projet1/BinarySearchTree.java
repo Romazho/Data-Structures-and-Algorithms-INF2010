@@ -54,10 +54,11 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
 		String mot="[";
 		List<BinaryNode<T>> list = getItemsInOrder();
 		
-		for(int i = 0; i < list.size();i++) {
-			mot +=list.get(i).getData().toString();
+		for(int i = 0; i < list.size();++i) {
 			
-			if(i!= list.size()-1){
+			mot += list.get(i).getData().toString();
+			
+			if(i != list.size()-1){
 				mot += ", ";
 			}
 		}

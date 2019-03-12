@@ -65,7 +65,7 @@ public class BinaryNode<T extends Comparable<? super T>> {
 		int hauteurGauche = -1, hauteurDroit = -1; // On ne peut pas les déclarer dans les if
 		
 		if ((left == null) && (right == null)) //Si le dernier noeud
-			return -1;
+			return 0;
 		
 		if (left != null) 
 			hauteurGauche = left.getHeight();

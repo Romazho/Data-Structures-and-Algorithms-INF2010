@@ -9,7 +9,7 @@ public class CompanyNode implements Comparable<CompanyNode> {
     // O(1)
     public CompanyNode(Integer data) {
     	this.money = data;
-    	worstChild = this; // Le pire est lui même 
+    	worstChild = null; // Le pire est lui même 
     	childs = new BinarySearchTree<CompanyNode>(this); // Initialisation necessaire ? //le root est this.
 
     }
@@ -17,16 +17,22 @@ public class CompanyNode implements Comparable<CompanyNode> {
     // TODO: la compagnie courante achete une autre compagnie
     // O(log(n))
     public void buy(CompanyNode item) {
-    	money += item.money; // On ajoute l'argent à la compagnie
     	
-    	childs.insert(item); // On ajoute un element à la compagnie
-    	
-    	// ====>>>>Verifier le pire child
-    	List<BinaryNode<CompanyNode>> sortedItemList = item.childs.getItemsInOrder();
-    	for(int i = 0; i < sortedItemList.size();++i) {
+    	//on ne peut pas acheter une compagnie qui vaut plus que cette compagnie. 
+    	//if( this.compareTo(item) >= 0) {
+	    		
+	    	money += item.money; // On ajoute l'argent à la compagnie
+	    	
+	    	childs.insert(item); // On ajoute un element à la compagnie
+	    	
+	    	// ====>>>>Verifier le pire child
+	    	List<BinaryNode<CompanyNode>> sortedItemList = childs.getItemsInOrder();
+	    	worstChild = sortedItemList.get(0).getData();
+    	//}
+    /*	for(int i = 0; i < sortedItemList.size();++i) {
     		if(worstChild.compareTo(sortedItemList.get(i).getData()) > 0); // Si notre worst est plus grand que celui de sortedItemList 
     			worstChild = sortedItemList.get(i).getData();
-    	}
+    	}*/
     }
 
     // TODO: on retourne le montant en banque de la compagnie
