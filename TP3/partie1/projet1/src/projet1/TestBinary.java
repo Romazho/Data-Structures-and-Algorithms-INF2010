@@ -93,11 +93,11 @@ public class TestBinary {
     }
 
     private void testWithLeftValues() {
-        Integer max = 1000;
-        BinarySearchTree<Integer> tree = new BinarySearchTree<>(1000);
+        Integer max = 2;
+        BinarySearchTree<Integer> tree = new BinarySearchTree<>(max);
         List<Integer> list = new ArrayList<>();
-        list.add(1000);
-        for (int i = 1000 - 1; i >= 0; --i) {
+        list.add(max);
+        for (int i = max - 1; i >= 0; --i) {
             tree.insert(i);
             list.add(i);
         }
