@@ -4,6 +4,7 @@ import java.lang.reflect.Method;
 // Toute modification a ce fichier ne sera pas comptabilisée
 
 public class TestCompany {
+	
     public void test() {
         TestHelper.printHeader("Debut des tests de l'arbre de companies");
         Method[] methods = this.getClass().getDeclaredMethods();

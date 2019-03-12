@@ -9,17 +9,19 @@ public class CompanyNode implements Comparable<CompanyNode> {
     // O(1)
     public CompanyNode(Integer data) {
     	this.money = data;
-    	childs = new BinarySearchTree<CompanyNode>(); // Initialisation necessaire ? 
     	worstChild = this; // Le pire est lui même 
+    	childs = new BinarySearchTree<CompanyNode>(this); // Initialisation necessaire ? //le root est this.
+
     }
 
     // TODO: la compagnie courante achete une autre compagnie
     // O(log(n))
     public void buy(CompanyNode item) {
     	money += item.money; // On ajoute l'argent à la compagnie
-    	// ====>>>>Verifier le pire child
+    	
     	childs.insert(item); // On ajoute un element à la compagnie
     	
+    	// ====>>>>Verifier le pire child
     	List<BinaryNode<CompanyNode>> sortedItemList = item.childs.getItemsInOrder();
     	for(int i = 0; i < sortedItemList.size();++i) {
     		if(worstChild.compareTo(sortedItemList.get(i).getData()) > 0); // Si notre worst est plus grand que celui de sortedItemList 
@@ -42,7 +44,23 @@ public class CompanyNode implements Comparable<CompanyNode> {
     // O(n)
     public void fillStringBuilderInOrder(StringBuilder builder, String prefix) {
     	
+    	builder.append(this.getMoney() + "\n");
+    	
+    	List<BinaryNode<CompanyNode>> orderedList = childs.getItemsInOrder();
+    	
+    	boolean empty = orderedList.isEmpty();
+    	
+    	if(empty = false) {	//si la liste n'est pas vide
+    		
+	    	for(int i=orderedList.size();i > 0;--i) {
+	    		//if(orderedList.get(i).) {	//si le noeud a un fils alors on rapelle cette fonction recursive
+		    		builder.append(" > ");
+		    		fillStringBuilderInOrder(builder,prefix);
+	    		//}
+	    	}
+    	}
     }
+    
 
     // TODO: on override le comparateur pour defenir l'ordre
     @Override
