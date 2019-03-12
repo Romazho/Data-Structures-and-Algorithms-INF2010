@@ -83,14 +83,21 @@ public class BinaryNode<T extends Comparable<? super T>> {
 	// de manière que le plus petit item sera le premier inseré
 	// O(n)
 	public void fillListInOrder(List<BinaryNode<T>> result) {
-		if (left == null) { //Verifier que l'element suivant n'est pas null avant
+		if (left == null) { //Verifier que l'element suivant n'est pas null avant <-
+			result.add(this);
+			
+			if (right == null) { //Verifier que l'element suivant n'est pas null avant ->
+				return;
+			}
+			right.fillListInOrder(result); // on va a droite
+			
 			return;
 		}
 		left.fillListInOrder(result); // on va a gauche
 
-		result.add(this); // on ajoute l'element
+		result.add(this); // on ajoute l'element O
 
-		if (right == null) { //Verifier que l'element suivant n'est pas null avant
+		if (right == null) { //Verifier que l'element suivant n'est pas null avant ->
 			return;
 		}
 		right.fillListInOrder(result); // on va a droite

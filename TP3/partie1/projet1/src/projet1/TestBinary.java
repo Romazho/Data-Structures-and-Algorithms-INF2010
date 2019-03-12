@@ -78,7 +78,7 @@ public class TestBinary {
     }
 
     private void testWithRightValues() {
-        Integer max = 1000;
+        Integer max = 6;
         BinarySearchTree<Integer> tree = new BinarySearchTree<>(0);
         List<Integer> list = new ArrayList<>();
         list.add(0);
