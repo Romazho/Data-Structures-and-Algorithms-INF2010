@@ -18,12 +18,27 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
     }
     
     @SuppressWarnings("unchecked")
-    public BinaryHeap( AnyType[] items, boolean min )
-    {
-	this.min = min;
-	
-	// COMPLETEZ
-	// invoquez buildMinHeap() ou buildMaxHeap() en fonction du parametre min;
+    public BinaryHeap( AnyType[] items, boolean min ){
+		this.min = min;
+		
+		// COMPLETEZ
+		// invoquez buildMinHeap() ou buildMaxHeap() en fonction du parametre min;
+		
+		//on copie le tableau donnee
+		array = (AnyType[]) new Object[items.length];
+		
+		//array = items;
+		
+		for(int i =1; i<items.length; i++) {
+			array[i] = items[i];
+		}
+		
+		if(min == true) {
+			buildMinHeap();
+		}
+		else {
+			buildMaxHeap();
+		}
     }
     
     public boolean offer( AnyType x )
@@ -35,6 +50,24 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
 	    doubleArray();
 	
 	// COMPLETEZ
+	//des notes de cours:
+	int hole = ++currentSize;
+	if( min == true) {
+		
+		for( ; hole > 1 && x.compareTo( array[ hole / 2 ] ) < 0; hole /= 2) {
+			array[ hole ] = array[ hole / 2 ];
+		}
+		array[ hole ] = x;
+	}
+	else {//Cas max
+		
+		for( ; hole > 1 && x.compareTo( array[ hole / 2 ] ) > 0; hole /= 2) {
+			array[ hole ] = array[ hole / 2 ];
+		}
+		array[ hole ] = x;
+	}
+
+	modifications++;
 	
 	return true;
     }
@@ -50,6 +83,7 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
     public AnyType poll()
     {
 	//COMPLETEZ
+    	
     }
     
     public Iterator<AnyType> iterator()
@@ -60,11 +94,19 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
     private void buildMinHeap()
     {
 	//COMPLETEZ
+    	//on n'est pas sur si on donne les bonnes paramètres à la fonction
+    	for(int i=currentSize/2;i >0; i--) {
+    		percolateDownMinHeap(i, array.length-1);
+    	}
     }
     
     private void buildMaxHeap()
     {
 	//COMPLETEZ
+    	//on n'est pas sur si on donne les bonnes paramètres à la fonction
+    	for(int i=currentSize/2;i >0; i--) {
+    		percolateDownMaxHeap(i, array.length-1);
+    	}
     }
     
     public boolean isEmpty()
@@ -129,10 +171,34 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
      * @param size    Indice max du tableau
      * @param heapIndexing  True si les elements commencent a l'index 1, false sinon
      */
+    
     private static <AnyType extends Comparable<? super AnyType>>
 				    void percolateDownMinHeap( AnyType[] array, int hole, int size, boolean heapIndexing )
     {
 	//COMPLETEZ
+    	if( heapIndexing == true) {
+    		int child;
+    		AnyType tmp;
+    		for( tmp = array[ hole ]; leftChild( hole, true ) < size; hole = child ) {
+    			
+    			child = leftChild( hole , true);
+    			
+    			if(child > size)
+    				break;
+    			
+	    		if( child != size - 1 && array[ child ].compareTo( array[ child + 1 ] ) > 0 )
+	    			child++;
+	    		if( tmp.compareTo( array[ child ] ) > 0 ) //Haut moins bas
+	    			array[ hole ] = array[ child ];
+	    		else {
+	    			break;
+	    		}
+	    	}
+    		array[ hole ] = tmp;
+    	}
+    	else {
+    		//n'est pas demandé
+    	}
     }
     
     /**
@@ -154,6 +220,28 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
 				    void percolateDownMaxHeap( AnyType[] array, int hole, int size, boolean heapIndexing )
     {
 	//COMPLETEZ
+    	if( heapIndexing == true) {
+    		int child;
+    		AnyType tmp;
+    		for( tmp = array[ hole ]; leftChild( hole, true ) < size; hole = child ) {
+    			child = leftChild( hole , true);
+    			
+    			if(child > size)
+    				break;
+    			
+	    		if( child != size - 1 && array[ child ].compareTo( array[ child + 1 ] ) < 0 )
+	    			child++;
+	    		if( tmp.compareTo( array[ child ] ) < 0 ) //Haut moins bas
+	    			array[ hole ] = array[ child ];
+	    		else {
+	    			break;
+	    		}
+	    	}
+    		array[ hole ] = tmp;
+    	}
+    	else {
+    		//n'est pas demandé
+    	}
     }
     
     public static <AnyType extends Comparable<? super AnyType>>
