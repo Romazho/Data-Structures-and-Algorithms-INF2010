@@ -255,12 +255,31 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
 				   void heapSort( AnyType[] a )
     {
 	//COMPLETEZ
+
+	//pour s'assurer que c'est construit.
+		buildMaxHeap();
+		for(int i=a.length-1;i>0; i--){
+			
+			swapReferences( a, 0, i ); //est-ce que cette fonction existe et si oui est-ce qu'on a besoin de la faire?
+			//et est-ce qu'elle fait la bonne chose?
+
+			percolateDownMaxHeap(a,0,i);
+		}
     }
     
     public static <AnyType extends Comparable<? super AnyType>>
 				   void heapSortReverse( AnyType[] a )
     {
 	//COMPLETEZ
+		//pour s'assurer que c'est construit.
+		buildMinHeap();
+		for(int i=a.length-1;i>0; i--){
+			
+			swapReferences( a, 0, i ); //est-ce que cette fonction existe et si oui est-ce qu'on a besoin de la faire?
+			//et est-ce qu'elle fait la bonne chose?
+
+			percolateDownMinHeap(a,0,i);
+		}
     }
     
     public String nonRecursivePrintFancyTree()
@@ -311,15 +330,33 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
 	
 	public boolean hasNext() {
 	    //COMPLETEZ
+		//pas sur car je l'ai écrit sans eclipse.
+		if(*this >0 && *this < currentSize){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 
 	public Object next() throws NoSuchElementException, 
 				    ConcurrentModificationException, 
 				    UnsupportedOperationException {
 	    //COMPLETEZ
-		return;
+		//pas sur car je l'ai écrit sans eclipse.
+		int temp = modifications;
+		this++;
+		if(temp == modifications){
+			return *this;
+		}
+		else{
+			throw ConcurrentModificationException;
+			return;
+		}
+		
 	}
 	
+	//est-ce qu'on doit implementer cette fonction ? car c'est pas écrit qu'on doit...
 	public void remove() {
 	    throw new UnsupportedOperationException();
 	}
