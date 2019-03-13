@@ -47,21 +47,23 @@ public class CompanyNode implements Comparable<CompanyNode> {
     // O(n)
     public void fillStringBuilderInOrder(StringBuilder builder, String prefix) {
     	
-    	builder.append(this.getMoney() + "\n");
+    	builder.append(this.getMoney() + "\n"); // Ajout du root
+    	String oldPrefix = prefix; // Sauvegarde pour le décrément
+    	prefix += " > "; // Incrément du préfix
+    	builder.append(prefix);
     	
     	List<BinaryNode<CompanyNode>> orderedList = childs.getItemsInOrder();
-    	
-    	boolean empty = orderedList.isEmpty();
-    	
-    	if(empty = false) {	//si la liste n'est pas vide
-    		
-	    	for(int i=orderedList.size();i > 0;--i) {
-	    		//if(orderedList.get(i).) {	//si le noeud a un fils alors on rapelle cette fonction recursive
-		    		builder.append(" > ");
-		    		fillStringBuilderInOrder(builder,prefix);
+    	//boolean empty = orderedList.isEmpty();
+    	int listSize = orderedList.size();
+    	if( listSize != 1) {	//si la liste n'est pas vide 
+	    	for(int i = listSize - 2 ;i >= 0;--i) { // -2 car le dernier element est hord index et que le second est le root
+	    		//if(orderedList.get(i)) {	//si le noeud a un fils alors on rapelle cette fonction recursive
+	 
+	    		orderedList.get(i).getData().fillStringBuilderInOrder(builder,prefix);
 	    		//}
 	    	}
     	}
+    	prefix = oldPrefix; // Décrément du préfixe
     }
     
 
