@@ -83,7 +83,14 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
     public AnyType poll()
     {
 	//COMPLETEZ
-    	
+
+		AnyType tmpItem = array[ 1 ]; // Retire la racine
+		array[ 1 ] = array[ currentSize-- ];
+		if(min == true)
+			percolateDownMinHeap(1,currentSize) ;
+		else 
+			percolateDownMaxHeap(1,currentSize);
+		return tmpItem;
     }
     
     public Iterator<AnyType> iterator()
@@ -310,6 +317,7 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
 				    ConcurrentModificationException, 
 				    UnsupportedOperationException {
 	    //COMPLETEZ
+		return;
 	}
 	
 	public void remove() {
