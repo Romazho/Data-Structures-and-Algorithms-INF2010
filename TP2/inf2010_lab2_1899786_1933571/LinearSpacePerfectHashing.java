@@ -1,0 +1,171 @@
+package tp2;
+
+import java.util.Random;
+import java.util.ArrayList;
+
+public class LinearSpacePerfectHashing<AnyType>
+{
+   static int p = 46337;
+   
+   int a, b, n, memorySize;
+   QuadraticSpacePerfectHashing<AnyType>[] data;
+   Random generator;
+   
+   LinearSpacePerfectHashing()
+   {
+      clear();
+   }
+   
+   LinearSpacePerfectHashing(ArrayList<AnyType> array)
+   {
+      allocateMemory(array);
+   }
+   
+   public void setArray(ArrayList<AnyType> array)
+   {
+      allocateMemory(array);
+   }
+   
+   public int size()
+   {
+      return n;
+   }
+
+   public void clear()
+   {
+      generator = new Random( System.nanoTime() );
+      a = b = n = memorySize = 0; 
+      data = null;
+   }
+
+   private int findPos(AnyType x)
+   {
+      // completer
+	  int hash = x.hashCode();
+	  int y = ((a*hash+b)%p)%n;
+	  
+	  /*while(y<0 || y>=n) {
+		  hash = x.hashCode();
+		  y = ((a*hash)%p)%n;
+	  }*/
+	  if(y < 0 )
+		  y*= -1;
+	  
+      return y;
+   }
+   
+   public boolean contains(AnyType x)
+   {      
+      // completer
+	  for(int i=0;i<data.length;i++) {
+		  if(data[i] == null) {
+			  continue;
+		  }
+		  else if(data[i].contains(x)) {
+			  return true;
+		  }
+	  }
+      return false;
+   }
+      
+   @SuppressWarnings("unchecked")
+   private void allocateMemory(ArrayList<AnyType> array)
+   {
+      clear();
+      
+      a=0; // Ajout de la m�thode al�atoire 
+	  while(a == 0 && a<p) {
+	  a = generator.nextInt(p);
+	  }
+	  b = generator.nextInt(p);
+	  
+      if(array == null || array.size() == 0) return;
+
+      n    = array.size();
+      data = new QuadraticSpacePerfectHashing[n];
+      
+      memorySize =0;
+      
+      if(n == 1) // Si le array est de taille 1 
+      {
+         // Completer
+    	 data[0] = new QuadraticSpacePerfectHashing<AnyType>(array);  // Position 0 dans le tableau
+
+    	 memorySize = 1;
+         return;
+      }
+      
+      for(int i=0;i<array.size();i++) {
+    	  int pos =findPos(array.get(i));
+    	  
+    	  if(data[pos] == null) { // Si l'espace est libre, mettre l'element
+    		  ArrayList<AnyType>dummyArray = new ArrayList<AnyType>(1); // Tableau temporaire de capacité 1
+    		  dummyArray.add(array.get(i));
+    		  data[pos] = new QuadraticSpacePerfectHashing<AnyType>(dummyArray);
+    	  }
+    	  
+    	  else { // Si collision
+    		  ArrayList<AnyType>dummyArray = new ArrayList<AnyType>(data[pos].size() + 1); // +1 car on va ajouter un element
+    		  for(int j = 0; j < data[pos].memorySize(); j++) { // Copier les éléments de l'ancien tableau quad
+    			  if(data[pos].items[j] != null) { // S'il y a un élement
+    				  dummyArray.add(data[pos].items[j]); // Copie d'un élément
+    			  }
+    		  }
+    		  dummyArray.add(array.get(i)); // Ajout du nouvel élément dans le dummy
+    		  data[pos].clear(); // On fait de la place pour le nouveau array
+    		  data[pos] = new QuadraticSpacePerfectHashing<AnyType>(dummyArray); // On9899 utilise le constructeur avec le nouveau tableau
+    	  }
+    	 
+      }
+      for(int index = 0; index < data.length; index ++) {
+      	if(data[index] != null){
+		memorySize += data[index].memorySize();
+	 }
+      }
+   }
+   
+   public int memorySize() 
+   {
+      return memorySize;
+   }
+   
+   public String toString(){
+      StringBuilder sb = new StringBuilder();
+      
+      // completer
+      for(int i=0;i<data.length;i++) {	//on parcours le tableau data
+    	  System.out.print(i + "-> " );
+
+    	  if(data[i] == null) {			//s'il n'y a rien dans cette case alors on affiche "vide"
+    		  System.out.println("vide.");
+    	  }
+    	  else {
+	    	  for(int j=0;j<data[i].memorySize();j++) {		//on parcours le tableau quadratic
+	    		  if(data[i].items[j] != null ) {
+	    			  System.out.print(data[i].items[j] + "," );
+	    		  }
+	    	  }
+	    	  System.out.println(" ");
+    	  }
+      }
+      
+      return sb.toString();
+   }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

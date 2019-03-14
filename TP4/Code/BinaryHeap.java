@@ -257,13 +257,13 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
 	//COMPLETEZ
 
 	//pour s'assurer que c'est construit.
-		buildMaxHeap();
+		//buildMaxHeap(); [KC] : Pas besoin de vérifier puisque lorsqu'il est construit cette fonction est appelée 
 		for(int i=a.length-1;i>0; i--){
 			
 			swapReferences( a, 0, i ); //est-ce que cette fonction existe et si oui est-ce qu'on a besoin de la faire?
 			//et est-ce qu'elle fait la bonne chose?
 
-			percolateDownMaxHeap(a,0,i);
+			percolateDownMaxHeap(a,0,i,true); // Ajout de true
 		}
     }
     
@@ -272,13 +272,13 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
     {
 	//COMPLETEZ
 		//pour s'assurer que c'est construit.
-		buildMinHeap();
+		//buildMinHeap(); [KC] : Pas besoin de vérifier puisque lorsqu'il est construit cette fonction est appelée 
 		for(int i=a.length-1;i>0; i--){
 			
 			swapReferences( a, 0, i ); //est-ce que cette fonction existe et si oui est-ce qu'on a besoin de la faire?
 			//et est-ce qu'elle fait la bonne chose?
 
-			percolateDownMinHeap(a,0,i);
+			percolateDownMinHeap(a,0,i,true); // Ajout de true
 		}
     }
     
@@ -327,15 +327,15 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
     }
     
     private class HeapIterator implements Iterator {
+	private int expectedModCount = modifications;
+	private int iteratorCurrentPos = 1; // Car on commence toujours à 1
 	
 	public boolean hasNext() {
-	    //COMPLETEZ
-		//pas sur car je l'ai Ã©crit sans eclipse.
-		if(*this >0 && *this < currentSize){
-			return true;
+		if(iteratorCurrentPos >= currentSize){
+			return false;
 		}
 		else{
-			return false;
+			return true;
 		}
 	}
 
@@ -344,15 +344,13 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
 				    UnsupportedOperationException {
 	    //COMPLETEZ
 		//pas sur car je l'ai Ã©crit sans eclipse.
-		int temp = modifications;
-		this++;
-		if(temp == modifications){
-			return *this;
-		}
-		else{
-			throw ConcurrentModificationException;
-			return;
-		}
+		if(expectedModCount != modifications)
+			throw new ConcurrentModificationException(); // Si il y a eu une modification 
+		if(!hasNext()) 
+            throw new java.util.NoSuchElementException(); // Si n'a pas d'autre element
+        else
+			return array[iteratorCurrentPos++];
+		
 		
 	}
 	
