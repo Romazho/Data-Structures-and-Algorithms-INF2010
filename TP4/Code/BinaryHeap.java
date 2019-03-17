@@ -25,7 +25,7 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
 		// invoquez buildMinHeap() ou buildMaxHeap() en fonction du parametre min;
 		
 		//on copie le tableau donnee
-		array = (AnyType[]) new Object[items.length];
+		array = (AnyType[]) new Comparable[items.length];
 		
 		//array = items;
 		
