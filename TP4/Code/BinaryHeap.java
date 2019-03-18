@@ -19,20 +19,17 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
     
     @SuppressWarnings("unchecked")
     public BinaryHeap( AnyType[] items, boolean min ){
+    	
 		this.min = min;
+		currentSize = items.length;
 		
-		// COMPLETEZ
-		// invoquez buildMinHeap() ou buildMaxHeap() en fonction du parametre min;
+		array = (AnyType[]) new Comparable[currentSize + 1]; // Allocation de la mémoire. +1 car on commence à l'index 1
 		
-		//on copie le tableau donnee
-		array = (AnyType[]) new Comparable[items.length];
-		
-		//array = items;
-		
-		for(int i =1; i<items.length; i++) {
-			array[i] = items[i];
+		int i = 1;
+		for(AnyType item : items) { // Copie des éléments d'item(index 0) vers array (index 1)
+			array[i++] = item;
 		}
-		
+
 		if(min == true) {
 			buildMinHeap();
 		}
@@ -282,11 +279,39 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
 		}
     }
     
+    
+    /*
+     * Version adaptée de https://www.geeksforgeeks.org/iterative-preorder-traversal/
+     */
     public String nonRecursivePrintFancyTree()
     {
-	String outputString = "";
-	
-	//COMPLETEZ
+         AnyType root = array[1];
+        // S'il est vide
+        if (root == null) { 
+            return " Is empty"; 
+        } 
+
+        String outputString = "";
+        Stack<AnyType> stack = new Stack<AnyType>(); 
+        stack.push(root); 
+  
+        while (stack.empty() == false) { 
+              
+            AnyType currentPos = stack.peek(); 
+            int left = leftChild((int)currentPos,true); 
+            int right = left + 1;
+            outputString += "|__"; 
+            stack.pop(); 
+            
+            
+            if (right <= currentSize) { //Droite
+                stack.push(array[right]); 
+            } 
+            if (left <= currentSize) { //Gauche
+                stack.push(array[left]); 
+            } 
+        } 
+    
 
 	return outputString;
     }
