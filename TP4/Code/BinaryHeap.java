@@ -20,11 +20,14 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
     @SuppressWarnings("unchecked")
     public BinaryHeap( AnyType[] items, boolean min ){
     	
+    	
+    	
 		this.min = min;
 		currentSize = items.length;
 		
-		array = (AnyType[]) new Comparable[currentSize + 1]; // Allocation de la mémoire. +1 car on commence à l'index 1
 		
+		array = (AnyType[]) new Comparable[currentSize + 1]; // Allocation de la mémoire. +1 car on commence à l'index 1
+		// Dans le livre il font quelque chose de bizarre ...
 		int i = 1;
 		for(AnyType item : items) { // Copie des éléments d'item(index 0) vers array (index 1)
 			array[i++] = item;
@@ -285,35 +288,66 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
      */
     public String nonRecursivePrintFancyTree()
     {
-         AnyType root = array[1];
-        // S'il est vide
-        if (root == null) { 
+    	int index = 1;
+        if (array[index] == null) {    // S'il est vide, cas de base
             return " Is empty"; 
         } 
-
         String outputString = "";
-        Stack<AnyType> stack = new Stack<AnyType>(); 
-        stack.push(root); 
+        
+        Stack<Integer> indexStack = new Stack<Integer>(); 
+        Stack<String> spacingStack = new Stack<String>();
+        
+        boolean theIncredibleMagicWTFVariableWithAWTFName = false;
+        indexStack.push(index); 
+        spacingStack.push(outputString);
   
-        while (stack.empty() == false) { 
-              
-            AnyType currentPos = stack.peek(); 
-            int left = leftChild((int)currentPos,true); 
-            int right = left + 1;
-            outputString += "|__"; 
-            stack.pop(); 
-            
-            
-            if (right <= currentSize) { //Droite
-                stack.push(array[right]); 
-            } 
-            if (left <= currentSize) { //Gauche
-                stack.push(array[left]); 
-            } 
-        } 
+        while (indexStack.empty() == false) { 
+        	String spacing = spacingStack.peek();
+        	index = indexStack.peek(); // Dernier item sur le stack
     
-
-	return outputString;
+        	int leftIndex = leftChild(index, true);
+        	int rightIndex = leftIndex + 1;
+        	
+        	if(theIncredibleMagicWTFVariableWithAWTFName == true) { // Le nom de la variable correspond à ma compréhension de ce qui se passe lol
+        		spacingStack.pop();
+        		theIncredibleMagicWTFVariableWithAWTFName = false;
+        	}
+        	outputString += spacing + "|__";
+        	
+        	if(index <= currentSize) {
+        		boolean isLeaf = index > currentSize/2;
+        		
+	        	outputString += array[index]  + "\n";
+	        	indexStack.pop(); 
+	            
+	    		if(index % 2 == 0) {
+	    		    spacing += "|  "; // un | et trois espace
+	    		    spacingStack.push(spacing);
+	    		}
+	    		
+	    		else {
+	    		    spacing += "   " ; // quatre espaces
+	    		    spacingStack.push(spacing);
+	    		}
+	    		
+	            if(!isLeaf){ 
+	        	   indexStack.push(rightIndex); // Child_Droite
+	        	   indexStack.push(leftIndex);  // Child_Gauche
+	           }
+	            else {
+	            	spacingStack.pop();
+	            	theIncredibleMagicWTFVariableWithAWTFName = true;
+	           
+	            }
+	        } //if
+        	else {
+        		outputString += "null\n";
+        		indexStack.pop();
+        	}
+        	
+        }//while
+    
+    return outputString;
     }
     
     public String printFancyTree()
@@ -335,7 +369,7 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
 		
 		String _prefix = prefix;
 		
-		if( index%2 == 0 )
+		if( index % 2 == 0 )
 		    _prefix += "|  "; // un | et trois espace
 		else
 		    _prefix += "   " ; // quatre espaces
