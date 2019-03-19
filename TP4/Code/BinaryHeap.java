@@ -102,19 +102,15 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
     
     private void buildMinHeap()
     {
-	//COMPLETEZ
-    	//on n'est pas sur si on donne les bonnes paramÃ¨tres Ã  la fonction
     	for(int i=currentSize/2;i >0; i--) {
-    		percolateDownMinHeap(i, array.length-1);
+    		percolateDownMinHeap(i, array.length);
     	}
     }
     
     private void buildMaxHeap()
     {
-	//COMPLETEZ
-    	//on n'est pas sur si on donne les bonnes paramÃ¨tres Ã  la fonction
     	for(int i=currentSize/2;i >0; i--) {
-    		percolateDownMaxHeap(i, array.length-1);
+    		percolateDownMaxHeap(i, array.length);
     	}
     }
     
@@ -192,9 +188,6 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
     			
     			child = leftChild( hole , true);
     			
-    			if(child > size)
-    				break;
-    			
 	    		if( child != size - 1 && array[ child ].compareTo( array[ child + 1 ] ) > 0 )
 	    			child++;
 	    		if( tmp.compareTo( array[ child ] ) > 0 ) //Haut moins bas
@@ -235,8 +228,6 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
     		for( tmp = array[ hole ]; leftChild( hole, true ) < size; hole = child ) {
     			child = leftChild( hole , true);
     			
-    			if(child > size)
-    				break;
     			
 	    		if( child != size - 1 && array[ child ].compareTo( array[ child + 1 ] ) < 0 )
 	    			child++;
@@ -256,32 +247,26 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
     public static <AnyType extends Comparable<? super AnyType>>
 				   void heapSort( AnyType[] a )
     {
-	//COMPLETEZ
-
-	//pour s'assurer que c'est construit.
-		//buildMaxHeap(); [KC] : Pas besoin de vérifier puisque lorsqu'il est construit cette fonction est appelée 
+    	for( int i = a.length / 2 - 1; i >= 0; i-- ) /* buildHeap */
+    		percolateDownMaxHeap( a, i, a.length,true);
+    	
 		for(int i=a.length-1;i>0; i--){
-			
-			swapReferences( a, 0, i ); //est-ce que cette fonction existe et si oui est-ce qu'on a besoin de la faire?
-			//et est-ce qu'elle fait la bonne chose?
-
-			percolateDownMaxHeap(a,0,i,true); // Ajout de true
-		}
+			swapReferences( a, 0, i ); 
+			percolateDownMaxHeap(a,0,i,true); 
+		}//for
     }
     
     public static <AnyType extends Comparable<? super AnyType>>
 				   void heapSortReverse( AnyType[] a )
     {
-	//COMPLETEZ
-		//pour s'assurer que c'est construit.
-		//buildMinHeap(); [KC] : Pas besoin de vérifier puisque lorsqu'il est construit cette fonction est appelée 
+       	for( int i = a.length / 2 - 1; i >= 0; i-- ) /* buildHeap car static */
+       		percolateDownMinHeap( a, i, a.length,true);
+  
 		for(int i=a.length-1;i>0; i--){
 			
-			swapReferences( a, 0, i ); //est-ce que cette fonction existe et si oui est-ce qu'on a besoin de la faire?
-			//et est-ce qu'elle fait la bonne chose?
-
-			percolateDownMinHeap(a,0,i,true); // Ajout de true
-		}
+			swapReferences( a, 0, i ); 
+			percolateDownMinHeap(a,0,i,true);
+		}//for
     }
     
     
