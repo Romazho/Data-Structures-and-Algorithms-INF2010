@@ -82,14 +82,16 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
     
     public AnyType poll()
     {
-	//COMPLETEZ
-
 		AnyType tmpItem = array[ 1 ]; // Retire la racine
 		array[ 1 ] = array[ currentSize-- ];
-		if(min == true)
+		if(min == true) {
 			percolateDownMinHeap(1,currentSize) ;
-		else 
+			modifications ++; // Bon endroit pour faire ça ? 
+		}
+		else {
 			percolateDownMaxHeap(1,currentSize);
+			modifications ++; // Bon endroit pour faire ça ? 
+		}
 		return tmpItem;
     }
     
@@ -297,7 +299,7 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
         Stack<Integer> indexStack = new Stack<Integer>(); 
         Stack<String> spacingStack = new Stack<String>();
         
-        boolean theIncredibleMagicWTFVariableWithAWTFName = false;
+        boolean leafToNode = false;
         indexStack.push(index); 
         spacingStack.push(outputString);
   
@@ -308,9 +310,9 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
         	int leftIndex = leftChild(index, true);
         	int rightIndex = leftIndex + 1;
         	
-        	if(theIncredibleMagicWTFVariableWithAWTFName == true) { // Le nom de la variable correspond à ma compréhension de ce qui se passe lol
+        	if(leafToNode == true) { 
         		spacingStack.pop();
-        		theIncredibleMagicWTFVariableWithAWTFName = false;
+        		leafToNode = false;
         	}
         	outputString += spacing + "|__";
         	
@@ -321,12 +323,12 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
 	        	indexStack.pop(); 
 	            
 	    		if(index % 2 == 0) {
-	    		    spacing += "|  "; // un | et trois espace
+	    		    spacing += "|  "; 
 	    		    spacingStack.push(spacing);
 	    		}
 	    		
 	    		else {
-	    		    spacing += "   " ; // quatre espaces
+	    		    spacing += "   " ;
 	    		    spacingStack.push(spacing);
 	    		}
 	    		
@@ -336,7 +338,7 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
 	           }
 	            else {
 	            	spacingStack.pop();
-	            	theIncredibleMagicWTFVariableWithAWTFName = true;
+	            	leafToNode = true;
 	           
 	            }
 	        } //if
@@ -401,12 +403,10 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
 	public Object next() throws NoSuchElementException, 
 				    ConcurrentModificationException, 
 				    UnsupportedOperationException {
-	    //COMPLETEZ
-		//pas sur car je l'ai Ã©crit sans eclipse.
 		if(expectedModCount != modifications)
-			throw new ConcurrentModificationException(); // Si il y a eu une modification 
+			throw new ConcurrentModificationException("Heap has been modified while in iteration"); // Si il y a eu une modification 
 		if(!hasNext()) 
-            throw new java.util.NoSuchElementException(); // Si n'a pas d'autre element
+            throw new NoSuchElementException("There is no more elements"); // Si n'a pas d'autre element
         else
 			return array[iteratorCurrentPos++];
 		
